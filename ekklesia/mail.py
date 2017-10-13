@@ -19,6 +19,7 @@
 # For more details see the file COPYING.
 
 from __future__ import print_function
+import smtplib
 
 class Template(object):
     """
@@ -260,16 +261,17 @@ class IMAPSource(MessageSource):
 class SMTPOutput(MessageOutput):
 
     def __init__(self, host="localhost",port=587,user="",password="",
-        keyfile=None,certfile=None,ca_certs=None,cert_reqs=None):
-        from kryptomime.transport import SMTP_TLS
-        self.smtp = SMTP_TLS(host,port)
-        self.smtp.starttls(keyfile=keyfile,certfile=certfile,cert_reqs=cert_reqs,ca_certs=ca_certs)
+        keyfile=None,certfile=None,ca_certs=None,cert_reqs=None,starttls=True):
+		self.smtp = smtplib.SMTP(host, port)
         self.user = user
         self.password = password
+        self.starttls = starttls
 
     def open(self):
-        self.smtp.ehlo()
-        self.smtp.login(self.user, self.password)
+        if self.starttls:
+			self.smtp.starttls(keyfile=keyfile,certfile=certfile,cert_reqs=cert_reqs,ca_certs=ca_certs)
+        if self.user != '':
+            self.smtp.login(self.user, self.password);
         return True
 
     def close(self):
