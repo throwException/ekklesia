@@ -264,7 +264,7 @@ class SMTPOutput(MessageOutput):
         keyfile=None,certfile=None,ca_certs=None,cert_reqs=None,starttls=True):
         self.smtp = smtplib.SMTP(host, port)
         if starttls:
-            self.smtp.starttls(keyfile=keyfile,certfile=certfile,cert_reqs=cert_reqs,ca_certs=ca_certs)
+            self.smtp.starttls(keyfile=keyfile,certfile=certfile)
         self.user = user
         self.password = password
 
