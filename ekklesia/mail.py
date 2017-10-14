@@ -262,7 +262,7 @@ class SMTPOutput(MessageOutput):
 
     def __init__(self, host="localhost",port=587,user="",password="",
         keyfile=None,certfile=None,ca_certs=None,cert_reqs=None,starttls=True):
-        print(self.host)
+        print(host)
         self.smtp = smtplib.SMTP(host, port)
         if starttls:
             self.smtp.starttls(keyfile=keyfile,certfile=certfile)
