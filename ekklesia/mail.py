@@ -267,8 +267,8 @@ class SMTPOutput(MessageOutput):
         if starttls:
             self.smtp.starttls(keyfile=keyfile,certfile=certfile)
             print("starttls ok")
-        self.user = user
-        self.password = password
+        self.user = user.decode("ascii")
+        self.password = password.decode("ascii")
 
     def open(self):
         if self.user != '':
